@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../app';
+import { app } from '../app';
 
 test('it should be ok', async () => {
   const response = await request(app).get('/');

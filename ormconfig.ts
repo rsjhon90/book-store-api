@@ -15,5 +15,6 @@ export default {
   ],
   cli: {
     migrationsDir: './src/database/migrations',
+    entitiesDir: './src/models',
   },
 };

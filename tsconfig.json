@@ -14,6 +14,7 @@
       "./node_modules/@types",
       "./src/@types"
     ],
+    "sourceMap": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
@@ -22,9 +23,9 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@controllers/*": ["./src/controllers/*"],
+      "@repositories/*": ["./src/repositories/*"],
       "@models/*": ["./src/models/*"],
-      "@config/*": ["./src/config/*"]
+      "@errors/*": ["./src/errors/*"]
     }
   },
   "include": [
