@@ -105,3 +105,4 @@ dist
 
 # data volume
 data-pg/
+data-mongo/
