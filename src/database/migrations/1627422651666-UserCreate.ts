@@ -7,16 +7,18 @@ export class UserCreate1627422651666 implements MigrationInterface {
         name: 'users',
         columns: [
           {
+            name: 'user_id',
+            type: 'uuid',
+            isPrimary: true,
+          },
+          {
             name: 'email',
             type: 'varchar',
-            isPrimary: true,
-            isNullable: false,
             isUnique: true,
           },
           {
             name: 'password',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'isAdmin',

@@ -11,13 +11,13 @@ export class CreateUserController {
       email, password, isAdmin, isAuthor,
     } = request.body;
 
-    await this.createUserUseCase.execute({
+    const user = await this.createUserUseCase.execute({
       email,
       password,
       isAdmin,
       isAuthor,
     });
 
-    return response.status(201).send();
+    return response.status(201).json(user);
   }
 }

@@ -25,7 +25,8 @@
     "paths": {
       "@repositories/*": ["./src/repositories/*"],
       "@models/*": ["./src/models/*"],
-      "@errors/*": ["./src/errors/*"]
+      "@errors/*": ["./src/errors/*"],
+      "@config/*": ["./src/config/*"]
     }
   },
   "include": [

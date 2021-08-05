@@ -1,10 +1,20 @@
+import { v4 as uuid } from 'uuid';
 import {
-  Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn,
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+  OneToOne,
 } from 'typeorm';
+import { Profile } from './Profile';
 
 @Entity('users')
 export class User {
-  @PrimaryColumn({ unique: true })
+  @PrimaryGeneratedColumn('uuid', { name: 'user_id' })
+  userId?: string
+
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -16,6 +26,9 @@ export class User {
   @Column({ nullable: true, default: false })
   isAuthor?: boolean;
 
+  @OneToOne(() => Profile, (profile) => profile.user)
+  profile?: Profile;
+
   @CreateDateColumn({ name: 'created_at' })
   private createdAt?: Date;
 
@@ -25,6 +38,9 @@ export class User {
   constructor(props: User) {
     Object.assign(this, props);
 
+    if (!this.userId) {
+      this.userId = uuid();
+    }
     if (!this.isAdmin) {
       this.isAdmin = false;
     }
