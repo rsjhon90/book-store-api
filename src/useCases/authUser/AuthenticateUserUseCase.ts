@@ -1,17 +1,21 @@
 import { AppError } from '@errors/AppError';
 import { IUsersRepository } from '@repositories/IUsersRepository';
-import * as jwt from 'jsonwebtoken';
 import { compare } from 'bcrypt';
 
-import authconfig from '@config/auth';
-import { IAuthUserDTO } from './AuthenticateUserDTO';
+import { IAuthUserRequest, ITokenResponse } from './AuthenticateUserDTO';
+import {
+  generateRefreshTokenProvider,
+  generateTokenProvider,
+} from '../refreshTokenUser';
 
 export class AuthenticateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute({ email, password }: IAuthUserDTO): Promise<{ token: string }> {
+  async execute({
+    email, password,
+  }: IAuthUserRequest): Promise<ITokenResponse> {
     const userAlreadyExists = await this.usersRepository
       .findByEmail(email);
 
@@ -24,14 +28,14 @@ export class AuthenticateUserUseCase {
       throw new AppError('Email or passowrd incorrect.', 401);
     }
 
-    const { secret, expiresIn } = authconfig.jwtInfo;
+    const { refreshId } = await generateRefreshTokenProvider.execute(
+      userAlreadyExists.userId,
+    );
 
-    const token = jwt.sign({}, secret,
-      {
-        subject: userAlreadyExists.userId,
-        expiresIn,
-      });
+    const token = generateTokenProvider.execute(
+      userAlreadyExists.userId,
+    );
 
-    return { token };
+    return { token, refreshToken: refreshId };
   }
 }

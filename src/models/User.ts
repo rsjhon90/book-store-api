@@ -7,7 +7,9 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
 } from 'typeorm';
+
 import { Profile } from './Profile';
+import { RefreshToken } from './RefreshToken';
 
 @Entity('users')
 export class User {
@@ -28,6 +30,9 @@ export class User {
 
   @OneToOne(() => Profile, (profile) => profile.user)
   profile?: Profile;
+
+  @OneToOne(() => RefreshToken, (refreshtoken) => refreshtoken.user)
+  refreshToken?: RefreshToken
 
   @CreateDateColumn({ name: 'created_at' })
   private createdAt?: Date;

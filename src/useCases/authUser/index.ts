@@ -1,13 +1,14 @@
 import {
   PostgresUsersRepository,
 } from '@repositories/implementations/PostgresUsersRepository';
+
 import { AuthenticateUserController } from './AuthenticateUserController';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 
-const postgresUsersRepositories = new PostgresUsersRepository();
+const postgresUsersRepository = new PostgresUsersRepository();
 
 const authenticateUserUseCase = new AuthenticateUserUseCase(
-  postgresUsersRepositories,
+  postgresUsersRepository,
 );
 
 const authenticateUserController = new AuthenticateUserController(
